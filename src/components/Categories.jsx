@@ -1,6 +1,6 @@
 import React from 'react';
 
-const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
+const categories = ['Всі', "М'ясні", 'Вегетаріанська', 'Гриль', 'Гострі', 'Закриті'];
 
 function Categories() {
   const [activeCategory, setActiveCategory] = React.useState(0);

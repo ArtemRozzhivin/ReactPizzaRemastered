@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function SortPopup() {
+  const sorting = ['популярностью', 'ціною', 'алфавітом'];
+  const [visibleSortPopup, setVisibleSortPopup] = useState(false);
+  const [activeSort, setActiveSort] = useState(sorting[0]);
+
+  const changeSorting = (sort) => {
+    setActiveSort(sort);
+    setVisibleSortPopup(!visibleSortPopup);
+  };
+
   return (
     <div className="sort">
       <div className="sort__label">
         <svg
+          className={visibleSortPopup ? 'open' : ''}
           width="10"
           height="6"
           viewBox="0 0 10 6"
@@ -15,16 +25,23 @@ function SortPopup() {
             fill="#2C2C2C"
           />
         </svg>
-        <b>Сортировка по:</b>
-        <span>популярности</span>
+        <b>Сортування за:</b>
+        <span onClick={() => setVisibleSortPopup(!visibleSortPopup)}>{activeSort}</span>
       </div>
-      <div className="sort__popup">
-        <ul>
-          <li className="active">популярности</li>
-          <li>цене</li>
-          <li>алфавиту</li>
-        </ul>
-      </div>
+      {visibleSortPopup && (
+        <div className="sort__popup">
+          <ul>
+            {sorting.map((sort) => (
+              <li
+                onClick={() => changeSorting(sort)}
+                className={activeSort === sort ? 'active' : ''}
+                key={sort}>
+                {sort}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
