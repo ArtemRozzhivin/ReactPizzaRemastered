@@ -1,50 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import './App.css';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+
 import Header from './components/Header';
-import Categories from './components/Categories';
-import SortPopup from './components/SortPopup';
+import Home from './pages/Home';
+import Cart from './pages/Cart';
+import CartEmpty from './pages/CartEmpty';
+import './App.css';
 import './scss/app.scss';
-import PizzaBlock from './components/PizzaBlock';
-import axios from 'axios';
+import NotFound from './pages/NotFound';
 
 function App() {
-  const [pizzas, setPizzas] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const fetchPizzas = async () => {
-    const response = await axios
-      .get('https://633058daf5fda801f8df1ccd.mockapi.io/pizzas')
-      .then((res) => setPizzas(res.data));
-  };
-
-  useEffect(() => {
-    setIsLoading(false);
-    fetchPizzas();
-    setIsLoading(true);
-  }, []);
-
   return (
     <div className="App">
       <div className="wrapper">
         <Header />
-        <div className="content">
-          <div className="container">
-            <div className="content__top">
-              <Categories />
-              <SortPopup />
-            </div>
-            <h2 className="content__title">Усі піци</h2>
-            {isLoading ? (
-              <div className="content__items">
-                {pizzas.map((obj) => (
-                  <PizzaBlock key={obj.id} {...obj} />
-                ))}
-              </div>
-            ) : (
-              'Завантаження піцц...'
-            )}
-          </div>
-        </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/cartEmpty" element={<CartEmpty />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </div>
     </div>
   );
