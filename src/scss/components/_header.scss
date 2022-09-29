@@ -8,6 +8,21 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media (max-width: 645px) {
+      flex-direction: column;
+      padding: 10px 0;
+
+      .header__logo {
+        margin: 0px 0px 20px 0px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        img {
+          margin: 0px 0px 20px 0px;
+        }
+      }
+    }
   }
 
   &__logo {

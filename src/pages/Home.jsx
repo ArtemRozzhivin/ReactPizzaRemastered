@@ -12,7 +12,7 @@ function Home() {
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchPizzas = async () => {
-    const response = await axios
+    await axios
       .get('https://633058daf5fda801f8df1ccd.mockapi.io/pizzas')
       .then((res) => setPizzas(res.data))
       .catch((e) => console.log(e))
@@ -20,7 +20,6 @@ function Home() {
   };
 
   useEffect(() => {
-    setIsLoading(false);
     fetchPizzas();
   }, []);
 
