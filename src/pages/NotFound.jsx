@@ -3,12 +3,13 @@ import React from 'react';
 import NotFoundItem from '../components/notFoundItem/NotFoundItem';
 
 function NotFound() {
-  return (
-    <div>
-      <NotFoundItem />
-      Вибачте
-    </div>
-  );
+	console.log('sss')
+	return (
+		<div>
+			<NotFoundItem />
+			Вибачте
+		</div>
+	);
 }
 
 export default NotFound;
