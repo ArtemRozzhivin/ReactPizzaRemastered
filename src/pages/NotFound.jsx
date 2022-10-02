@@ -3,7 +3,7 @@ import React from 'react';
 import NotFoundItem from '../components/notFoundItem/NotFoundItem';
 
 function NotFound() {
-	console.log('sss')
+	console.log('sss');
 	return (
 		<div>
 			<NotFoundItem />
