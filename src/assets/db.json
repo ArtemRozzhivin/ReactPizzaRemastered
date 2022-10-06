@@ -16,8 +16,8 @@
     "types": [0],
     "sizes": [26, 40],
     "price": 152,
-    "category": 1,
-    "rating": 6
+    "category": 2,
+    "rating": 2
   },
   {
     "id": 2,
@@ -37,7 +37,7 @@
     "sizes": [26, 30, 40],
     "price": 171,
     "category": 1,
-    "rating": 2
+    "rating": 1
   },
   {
     "id": 4,
@@ -46,7 +46,7 @@
     "types": [0, 1],
     "sizes": [26, 30, 40],
     "price": 259,
-    "category": 3,
+    "category": 1,
     "rating": 8
   },
   {
@@ -86,7 +86,7 @@
     "types": [0, 1],
     "sizes": [26, 30, 40],
     "price": 246,
-    "category": 4,
+    "category": 5,
     "rating": 10
   },
   {

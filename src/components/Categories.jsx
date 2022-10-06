@@ -4,7 +4,6 @@ const categories = ['Всі', "М'ясні", 'Вегетаріанська', 'Г
 
 function Categories({value, onChangeCategory}) {
 
-
   return (
     <div className="categories">
       <ul>

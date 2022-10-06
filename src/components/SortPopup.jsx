@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
-function SortPopup() {
-  const sorting = ['популярностью', 'ціною', 'алфавітом'];
+function SortPopup({ value ,onChangeSortPopup}) {
+  const sorting = [{sort: 'rating', name:'популярностью', order: 'desc'}, {sort: 'price', name:'ціною', order: 'desc'}, {sort: 'title', name:'алфавітом', order: 'asc'}];
   const [visibleSortPopup, setVisibleSortPopup] = useState(false);
-  const [activeSort, setActiveSort] = useState(sorting[0]);
+
 
   const changeSorting = (sort) => {
-    setActiveSort(sort);
+    onChangeSortPopup(sort);
     setVisibleSortPopup(!visibleSortPopup);
   };
 
@@ -26,17 +26,17 @@ function SortPopup() {
           />
         </svg>
         <b>Сортування за:</b>
-        <span onClick={() => setVisibleSortPopup(!visibleSortPopup)}>{activeSort}</span>
+        <span onClick={() => setVisibleSortPopup(!visibleSortPopup)}>{value.name}</span>
       </div>
       {visibleSortPopup && (
         <div className="sort__popup">
           <ul>
-            {sorting.map((sort) => (
+            {sorting.map((objSort) => (
               <li
-                onClick={() => changeSorting(sort)}
-                className={activeSort === sort ? 'active' : ''}
-                key={sort}>
-                {sort}
+                onClick={() => changeSorting(objSort)}
+                className={value.name === objSort.name ? 'active' : ''}
+                key={objSort.name}>
+                {objSort.name}
               </li>
             ))}
           </ul>
