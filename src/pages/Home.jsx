@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 
+import { SearchContext } from '../App';
 import Categories from '../components/Categories';
 import SortPopup from '../components/SortPopup';
 import PizzaBlock from '../components/PizzaBlock';
@@ -16,6 +17,7 @@ function Home() {
     order: 'desc',
   });
   const [isLoading, setIsLoading] = useState(false);
+  const { search } = useContext(SearchContext);
 
   const fetchPizzas = async () => {
     await axios
@@ -45,7 +47,9 @@ function Home() {
 
         <div className="content__items">
           {isLoading
-            ? pizzas.map((obj) => <PizzaBlock key={obj.id} {...obj} />)
+            ? pizzas
+                .filter((obj) => obj.title.toLowerCase().includes(search.toLowerCase()))
+                .map((obj) => <PizzaBlock key={obj.id} {...obj} />)
             : [...new Array(12)].map((_, index) => <PizzaBlockSkeleton key={index} />)}
         </div>
       </div>
@@ -54,6 +58,3 @@ function Home() {
 }
 
 export default Home;
-
-//поиск
-//пагинацию

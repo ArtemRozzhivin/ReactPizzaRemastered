@@ -3,7 +3,7 @@ import React from 'react';
 import emtyCartPhoto from '../assets/img/empty-cart.png';
 
 function CartEmpty() {
-	console.log(window)
+
 	return (
 		<div class="content ">
 			<div class=" container  container--cart">
