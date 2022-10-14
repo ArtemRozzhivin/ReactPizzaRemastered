@@ -9,6 +9,7 @@ import PizzaBlockSkeleton from '../components/PizzaBlock/PizzaBlockSkeleton';
 import '../scss/app.scss';
 
 function Home() {
+	console.log(pizzas)
   const [pizzas, setPizzas] = useState([]);
   const [activeCategory, setActiveCategory] = React.useState(0);
   const [activeSort, setActiveSort] = useState({

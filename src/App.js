@@ -13,6 +13,7 @@ export const SearchContext = React.createContext();
 
 function App() {
 	const [search, setSearch] = useState('');
+	console.log(search)
 	
   return (
 			<SearchContext.Provider value={{search, setSearch}}>
