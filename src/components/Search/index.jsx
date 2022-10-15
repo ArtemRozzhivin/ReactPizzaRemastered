@@ -8,7 +8,6 @@ import closeIcon from '../../assets/img/close.svg';
 
 function Search() {
   const { search, setSearch } = useContext(SearchContext);
-	console.log(SearchContext)
 
   return (
     <div className={styles.container}>

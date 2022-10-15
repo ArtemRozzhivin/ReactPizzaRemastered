@@ -5,7 +5,6 @@ import logoSvg from '../assets/img/pizza-logo.svg';
 import Search from '../components/Search';
 
 function Header() {
-	console.log('Worked')
   return (
     <div className="header">
       <div className="container">
