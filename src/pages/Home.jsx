@@ -25,7 +25,9 @@ function Home() {
           activeCategory ? `category=${activeCategory}` : ''
         }&sortBy=${activeSorting.sort}&order=${activeSorting.order}`,
       )
-      .then((res) => setPizzas(res.data))
+      .then((res) =>
+        setPizzas(res.data.filter((obj) => obj.title.toLowerCase().includes(search.toLowerCase()))),
+      )
       .catch((e) => console.log(e))
       .finally(() => setIsLoading(true));
   };
@@ -33,7 +35,8 @@ function Home() {
   useEffect(() => {
     setIsLoading(false);
     fetchPizzas();
-  }, [activeCategory, activeSorting]);
+    window.scrollTo(0, 0);
+  }, [activeCategory, activeSorting, search]);
 
   const setActiveCategory = (id) => {
     dispatch(setCategory(id));
@@ -54,9 +57,7 @@ function Home() {
 
         <div className="content__items">
           {isLoading
-            ? pizzas
-                .filter((obj) => obj.title.toLowerCase().includes(search.toLowerCase()))
-                .map((obj) => <PizzaBlock key={obj.id} {...obj} />)
+            ? pizzas.map((obj) => <PizzaBlock key={obj.id} {...obj} />)
             : [...new Array(12)].map((_, index) => <PizzaBlockSkeleton key={index} />)}
         </div>
       </div>
