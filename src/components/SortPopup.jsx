@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 
-function SortPopup({ value ,onChangeSortPopup}) {
-  const sorting = [{sort: 'rating', name:'популярностью', order: 'desc'}, {sort: 'price', name:'ціною', order: 'desc'}, {sort: 'title', name:'алфавітом', order: 'asc'}];
-  const [visibleSortPopup, setVisibleSortPopup] = useState(false);
+export const sorting = [
+  { sort: 'rating', name: 'популярностью', order: 'desc' },
+  { sort: 'price', name: 'ціною', order: 'desc' },
+  { sort: 'title', name: 'алфавітом', order: 'asc' },
+];
 
+function SortPopup({ value, onChangeSortPopup }) {
+  const [visibleSortPopup, setVisibleSortPopup] = useState(false);
 
   const changeSorting = (sort) => {
     onChangeSortPopup(sort);

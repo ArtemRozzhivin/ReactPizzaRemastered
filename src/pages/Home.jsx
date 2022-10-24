@@ -1,17 +1,24 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import axios from 'axios';
+import qs from 'qs';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-import { setCategory, setSort } from '../redux/slices/filterSlice';
+import { setCategory, setFilters, setSort } from '../redux/slices/filterSlice';
 import { SearchContext } from '../App';
 import Categories from '../components/Categories';
-import SortPopup from '../components/SortPopup';
+import SortPopup, { sorting } from '../components/SortPopup';
 import PizzaBlock from '../components/PizzaBlock';
 import PizzaBlockSkeleton from '../components/PizzaBlock/PizzaBlockSkeleton';
+
 import '../scss/app.scss';
 
 function Home() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isSearch = useRef(false);
+  const isMounted = useRef(false);
+
   const { activeCategory, activeSorting } = useSelector((state) => state.filter);
 
   const [pizzas, setPizzas] = useState([]);
@@ -33,10 +40,41 @@ function Home() {
   };
 
   useEffect(() => {
+    if (window.location.search) {
+      const urlParams = qs.parse(window.location.search.substring(1));
+
+      const sortBy = sorting.find((obj) => obj.sort === urlParams.sortBy);
+      console.log(urlParams, sortBy);
+
+      dispatch(setFilters({ category: Number(urlParams.category), sortBy: sortBy }));
+
+      isSearch.current = true;
+    }
+  }, []);
+
+  useEffect(() => {
     setIsLoading(false);
-    fetchPizzas();
-    window.scrollTo(0, 0);
+
+    if (!isSearch.current) {
+      fetchPizzas();
+      window.scrollTo(0, 0);
+    }
+
+    isSearch.current = false;
   }, [activeCategory, activeSorting, search]);
+
+  useEffect(() => {
+    if (isMounted.current) {
+      const params = qs.stringify({
+        category: activeCategory,
+        sortBy: activeSorting.sort,
+        order: activeSorting.order,
+      });
+
+      navigate(`?${params}`);
+    }
+    isMounted.current = true;
+  }, [activeCategory, activeSorting]);
 
   const setActiveCategory = (id) => {
     dispatch(setCategory(id));
@@ -66,3 +104,7 @@ function Home() {
 }
 
 export default Home;
+
+//поместитть запросы в юрл строку, вытащить их с урл строки, спарсить
+//window.location.search -
+//вшить даные в редакс и изменять их
