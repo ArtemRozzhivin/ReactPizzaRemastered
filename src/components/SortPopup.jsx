@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export const sorting = [
   { sort: 'rating', name: 'популярностью', order: 'desc' },
@@ -7,6 +7,7 @@ export const sorting = [
 ];
 
 function SortPopup({ value, onChangeSortPopup }) {
+	const sortRef = useRef();
   const [visibleSortPopup, setVisibleSortPopup] = useState(false);
 
   const changeSorting = (sort) => {
@@ -14,8 +15,21 @@ function SortPopup({ value, onChangeSortPopup }) {
     setVisibleSortPopup(!visibleSortPopup);
   };
 
+	useEffect(() => {
+		const hideSortPopup = (e) => {
+			if(!e.path.includes(sortRef.current)){
+				setVisibleSortPopup(false);
+			}
+		}
+		document.body.addEventListener('click', hideSortPopup)
+
+		return () => {
+			document.body.removeEventListener('click', hideSortPopup)
+		}
+	}, [])
+
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
           className={visibleSortPopup ? 'open' : ''}
