@@ -44,7 +44,6 @@ function Home() {
       const urlParams = qs.parse(window.location.search.substring(1));
 
       const sortBy = sorting.find((obj) => obj.sort === urlParams.sortBy);
-      console.log(urlParams, sortBy);
 
       dispatch(setFilters({ category: Number(urlParams.category), sortBy: sortBy }));
 
@@ -105,6 +104,4 @@ function Home() {
 
 export default Home;
 
-
 //реализовать в редуксе добавление, удаление и отображение пиц
-//показывать в хедере даные корзины

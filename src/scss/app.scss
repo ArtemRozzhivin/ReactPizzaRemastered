@@ -50,6 +50,12 @@ body {
     }
   }
 
+  &__items--cart {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+  }
+
   &__top {
     display: flex;
     align-items: center;
@@ -78,7 +84,7 @@ body {
 
   &--cart {
     max-width: 820px;
-    margin: 90px auto;
+    margin: 30px auto;
     .content__title {
       margin: 0;
     }
