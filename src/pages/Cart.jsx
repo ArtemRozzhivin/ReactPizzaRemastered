@@ -1,10 +1,25 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { clearItems } from '../redux/slices/cartSlice';
+
+import CartEmpty from '../components/CartEmpty';
 import CartItem from '../components/CartItem';
 
 function Cart() {
+  const dispatch = useDispatch();
   const { totalPrice, totalCount, items } = useSelector((state) => state.cart);
+
+  const removeItems = () => {
+    if (window.confirm('Видалити всі піцци з корзини?')) {
+      dispatch(clearItems());
+    }
+  };
+
+  if (!items.length) {
+    return <CartEmpty />;
+  }
+
   return (
     <div className="content">
       <div className="container container--cart">
@@ -41,7 +56,7 @@ function Cart() {
               </svg>
               Корзина
             </h2>
-            <div className="cart__clear">
+            <div onClick={removeItems} className="cart__clear">
               <svg
                 width="20"
                 height="20"
@@ -78,7 +93,7 @@ function Cart() {
                 />
               </svg>
 
-              <span>Очистить корзину</span>
+              <span>Очистити корзину</span>
             </div>
           </div>
           <div className="content__items--cart">
@@ -90,11 +105,11 @@ function Cart() {
             <div className="cart__bottom-details">
               <span>
                 {' '}
-                Всего пицц: <b>{totalCount} шт.</b>{' '}
+                Всього піцц: <b>{totalCount} шт.</b>{' '}
               </span>
               <span>
                 {' '}
-                Сумма заказа: <b>{totalPrice} ₴</b>{' '}
+                Сумма замовлення: <b>{totalPrice} ₴</b>{' '}
               </span>
             </div>
             <div className="cart__bottom-buttons">
@@ -114,10 +129,10 @@ function Cart() {
                   />
                 </svg>
 
-                <span>Вернуться назад</span>
+                <span>Повернутися назад</span>
               </a>
               <div className="button pay-btn">
-                <span>Оплатить сейчас</span>
+                <span>Оплатити зараз</span>
               </div>
             </div>
           </div>

@@ -6,7 +6,6 @@ import { store } from './redux/store';
 import Header from './components/Header';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
-import CartEmpty from './pages/CartEmpty';
 import NotFound from './pages/NotFound';
 import './App.css';
 import './scss/app.scss';
@@ -26,7 +25,6 @@ function App() {
 						<Routes>
 							<Route path="/" element={<Home />} />
 							<Route path="/cart" element={<Cart />} />
-							<Route path="/cartEmpty" element={<CartEmpty />} />
 							<Route path="*" element={<NotFound />} />
 						</Routes>
 					</div>

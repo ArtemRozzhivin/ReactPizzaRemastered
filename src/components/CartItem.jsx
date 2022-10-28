@@ -1,6 +1,25 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+
+import { addItemCart, minusItemCart, removeItemCart } from '../redux/slices/cartSlice';
 
 const CartItem = ({ id, title, price, imageUrl, size, type, count }) => {
+  const dispatch = useDispatch();
+
+  const plusItem = () => {
+    dispatch(addItemCart({ id }));
+  };
+
+  const minusItem = () => {
+    dispatch(minusItemCart({ id }));
+  };
+
+  const removeItem = () => {
+    if (window.confirm('Видалити піццу?')) {
+      dispatch(removeItemCart({ id }));
+    }
+  };
+
   return (
     <div className="cart__item">
       <div className="cart__item-img">
@@ -9,11 +28,13 @@ const CartItem = ({ id, title, price, imageUrl, size, type, count }) => {
       <div className="cart__item-info">
         <h3>{title}</h3>
         <p>
-          {type} тісто, {size} см.
+          {type}, {size} см.
         </p>
       </div>
       <div className="cart__item-count">
-        <div className="button button--outline button--circle cart__item-count-minus">
+        <div
+          onClick={minusItem}
+          className="button button--outline button--circle cart__item-count-minus">
           <svg
             width="10"
             height="10"
@@ -31,7 +52,9 @@ const CartItem = ({ id, title, price, imageUrl, size, type, count }) => {
           </svg>
         </div>
         <b>{count}</b>
-        <div className="button button--outline button--circle cart__item-count-plus">
+        <div
+          onClick={plusItem}
+          className="button button--outline button--circle cart__item-count-plus">
           <svg
             width="10"
             height="10"
@@ -50,10 +73,10 @@ const CartItem = ({ id, title, price, imageUrl, size, type, count }) => {
         </div>
       </div>
       <div className="cart__item-price">
-        <b>{price} ₴</b>
+        <b>{price * count} ₴</b>
       </div>
       <div className="cart__item-remove">
-        <div className="button button--outline button--circle">
+        <div onClick={removeItem} className="button button--outline button--circle">
           <svg
             width="10"
             height="10"
