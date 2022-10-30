@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
-import axios from 'axios';
+import React, { useEffect, useContext, useRef } from 'react';
 import qs from 'qs';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +10,7 @@ import Categories from '../components/Categories';
 import SortPopup, { sorting } from '../components/SortPopup';
 import PizzaBlock from '../components/PizzaBlock';
 import PizzaBlockSkeleton from '../components/PizzaBlock/PizzaBlockSkeleton';
+import NotFoundItem from '../components/notFoundItem/NotFoundItem';
 
 import '../scss/app.scss';
 
@@ -21,36 +21,24 @@ function Home() {
   const isMounted = useRef(false);
 
   const { activeCategory, activeSorting } = useSelector((state) => state.filter);
-  const { pizzas } = useSelector((state) => state.pizzas);
+  const { pizzas, status } = useSelector((state) => state.pizzas);
 
-  const [isLoading, setIsLoading] = useState(false);
   const { search } = useContext(SearchContext);
 
   const getPizzas = async () => {
-    try {
-      dispatch(fetchPizzas(activeCategory, activeSorting, search));
-    } catch (error) {
-      console.log(new Error(error));
-    } finally {
-      setIsLoading(true);
-    }
+    dispatch(fetchPizzas({ activeCategory, activeSorting, search }));
   };
 
   useEffect(() => {
     if (window.location.search) {
       const urlParams = qs.parse(window.location.search.substring(1));
-
       const sortBy = sorting.find((obj) => obj.sort === urlParams.sortBy);
-
       dispatch(setFilters({ category: Number(urlParams.category), sortBy: sortBy }));
-
       isSearch.current = true;
     }
   }, []);
 
   useEffect(() => {
-    setIsLoading(false);
-
     if (!isSearch.current) {
       getPizzas();
       window.scrollTo(0, 0);
@@ -89,16 +77,18 @@ function Home() {
         </div>
         <h2 className="content__title">Усі піци</h2>
 
-        <div className="content__items">
-          {isLoading
-            ? pizzas.map((obj) => <PizzaBlock key={obj.id} {...obj} />)
-            : [...new Array(12)].map((_, index) => <PizzaBlockSkeleton key={index} />)}
-        </div>
+        {status === 'error' ? (
+          <NotFoundItem />
+        ) : (
+          <div className="content__items">
+            {status === 'loading'
+              ? [...new Array(12)].map((_, index) => <PizzaBlockSkeleton key={index} />)
+              : pizzas.map((obj) => <PizzaBlock key={obj.id} {...obj} />)}
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
 export default Home;
-
-//реализовать в редуксе добавление, удаление и отображение пиц
