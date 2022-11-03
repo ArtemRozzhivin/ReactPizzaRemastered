@@ -1,14 +1,14 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { clearItems } from '../redux/slices/cartSlice';
+import { clearItems, selectCart } from '../redux/slices/cartSlice';
 
 import CartEmpty from '../components/CartEmpty';
 import CartItem from '../components/CartItem';
 
 function Cart() {
   const dispatch = useDispatch();
-  const { totalPrice, totalCount, items } = useSelector((state) => state.cart);
+  const { totalPrice, totalCount, items } = useSelector(selectCart);
 
   const removeItems = () => {
     if (window.confirm('Видалити всі піцци з корзини?')) {

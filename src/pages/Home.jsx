@@ -1,11 +1,10 @@
-import React, { useEffect, useContext, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import qs from 'qs';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { fetchPizzas } from '../redux/slices/pizzaSlice';
-import { setCategory, setFilters, setSort } from '../redux/slices/filterSlice';
-import { SearchContext } from '../App';
+import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzaSlice';
+import { selectFilter, setCategory, setFilters, setSort } from '../redux/slices/filterSlice';
 import Categories from '../components/Categories';
 import SortPopup, { sorting } from '../components/SortPopup';
 import PizzaBlock from '../components/PizzaBlock';
@@ -20,18 +19,16 @@ function Home() {
   const isSearch = useRef(false);
   const isMounted = useRef(false);
 
-  const { activeCategory, activeSorting } = useSelector((state) => state.filter);
-  const { pizzas, status } = useSelector((state) => state.pizzas);
-
-  const { search } = useContext(SearchContext);
+  const { activeCategory, activeSorting, searchValue } = useSelector(selectFilter);
+  const { pizzas, status } = useSelector(selectPizzaData);
 
   const getPizzas = async () => {
-    dispatch(fetchPizzas({ activeCategory, activeSorting, search }));
+    dispatch(fetchPizzas({ activeCategory, activeSorting, searchValue }));
   };
 
   useEffect(() => {
-    if (window.location.search) {
-      const urlParams = qs.parse(window.location.search.substring(1));
+    if (window.location.searchValue) {
+      const urlParams = qs.parse(window.location.searchValue.substring(1));
       const sortBy = sorting.find((obj) => obj.sort === urlParams.sortBy);
       dispatch(setFilters({ category: Number(urlParams.category), sortBy: sortBy }));
       isSearch.current = true;
@@ -45,7 +42,7 @@ function Home() {
     }
 
     isSearch.current = false;
-  }, [activeCategory, activeSorting, search]);
+  }, [activeCategory, activeSorting, searchValue]);
 
   useEffect(() => {
     if (isMounted.current) {
@@ -78,12 +75,16 @@ function Home() {
         <h2 className="content__title">Усі піци</h2>
 
         {status === 'error' ? (
-          <NotFoundItem />
+          <NotFoundItem>По даній адресі сторінки не знайдено. Спробуйте пізніше.</NotFoundItem>
         ) : (
           <div className="content__items">
-            {status === 'loading'
-              ? [...new Array(12)].map((_, index) => <PizzaBlockSkeleton key={index} />)
-              : pizzas.map((obj) => <PizzaBlock key={obj.id} {...obj} />)}
+            {status === 'loading' ? (
+              [...new Array(12)].map((_, index) => <PizzaBlockSkeleton key={index} />)
+            ) : pizzas.length === 0 ? (
+              <NotFoundItem>На жаль, піцци не знайдено.</NotFoundItem>
+            ) : (
+              pizzas.map((obj) => <PizzaBlock key={obj.id} {...obj} />)
+            )}
           </div>
         )}
       </div>
@@ -92,3 +93,5 @@ function Home() {
 }
 
 export default Home;
+
+//сделать карт селектор

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
@@ -10,15 +10,14 @@ import NotFound from './pages/NotFound';
 import './App.css';
 import './scss/app.scss';
 
-export const SearchContext = React.createContext();
+
 
 function App() {
-	const [search, setSearch] = useState('');
+
 
 	
   return (
 		<Provider store={store}>
-			<SearchContext.Provider value={{search, setSearch}}>
 				<div className="App">
 					<div className="wrapper">
 						<Header />
@@ -29,7 +28,6 @@ function App() {
 						</Routes>
 					</div>
 				</div>
-			</SearchContext.Provider>
 			</Provider>
   );
 }
