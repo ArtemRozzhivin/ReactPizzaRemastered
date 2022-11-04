@@ -81,7 +81,7 @@ function Home() {
             {status === 'loading' ? (
               [...new Array(12)].map((_, index) => <PizzaBlockSkeleton key={index} />)
             ) : pizzas.length === 0 ? (
-              <NotFoundItem>На жаль, піцци не знайдено.</NotFoundItem>
+              <NotFoundItem>На жаль, піци не знайдено.</NotFoundItem>
             ) : (
               pizzas.map((obj) => <PizzaBlock key={obj.id} {...obj} />)
             )}
@@ -94,4 +94,5 @@ function Home() {
 
 export default Home;
 
-//сделать карт селектор
+//зробити окреме вікно для кожної піци
+//зроботи аутлет

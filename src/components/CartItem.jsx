@@ -15,7 +15,7 @@ const CartItem = ({ id, title, price, imageUrl, size, type, count }) => {
   };
 
   const removeItem = () => {
-    if (window.confirm('Видалити піццу?')) {
+    if (window.confirm('Видалити піцу?')) {
       dispatch(removeItemCart({ id }));
     }
   };

@@ -11,7 +11,7 @@ function Cart() {
   const { totalPrice, totalCount, items } = useSelector(selectCart);
 
   const removeItems = () => {
-    if (window.confirm('Видалити всі піцци з корзини?')) {
+    if (window.confirm('Видалити всі піци з корзини?')) {
       dispatch(clearItems());
     }
   };
@@ -105,7 +105,7 @@ function Cart() {
             <div className="cart__bottom-details">
               <span>
                 {' '}
-                Всього піцц: <b>{totalCount} шт.</b>{' '}
+                Всього піц: <b>{totalCount} шт.</b>{' '}
               </span>
               <span>
                 {' '}

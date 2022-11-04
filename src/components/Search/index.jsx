@@ -40,7 +40,7 @@ function Search() {
         type="text"
         data-error="Помилка"
         className={styles.searchInput}
-        placeholder="Введіть назву піцци..."
+        placeholder="Введіть назву піци..."
       />
       {value && (
         <img onClick={clearInput} className={styles.iconClose} src={closeIcon} alt="searchIcon" />
