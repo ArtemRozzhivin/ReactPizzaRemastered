@@ -7,6 +7,7 @@ import { addItemCart, selectCartItemById } from '../../redux/slices/cartSlice';
 function PizzaBlock({ id, title, price, imageUrl, sizes, types }) {
   const dispatch = useDispatch();
   const item = useSelector(selectCartItemById(id));
+	console.log(item)
   const count = item ? item.count : 0;
 
   const [activeType, setActiveType] = useState(types[0]);
