@@ -3,10 +3,10 @@ import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
 import logoSvg from '../assets/img/pizza-logo.svg';
-import Search from '../components/Search';
+import Search from './Search';
 import { selectCart } from '../redux/slices/cartSlice';
 
-function Header() {
+const Header: React.FC = () => {
   const { totalPrice, totalCount } = useSelector(selectCart);
 
   const location = useLocation();

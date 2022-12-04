@@ -2,7 +2,11 @@ import React from 'react';
 
 import styles from './NotFoundItem.module.scss';
 
-function NotFoundItem({ children }) {
+type NotFoundItemProps = {
+  children: React.ReactNode;
+}
+
+const NotFoundItem: React.FC<NotFoundItemProps> = ({ children }) => {
   return (
     <div className={styles.notFoundItem}>
       <div className={styles.title}>Нічого не знайдено 😕</div>

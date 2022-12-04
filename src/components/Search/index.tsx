@@ -7,19 +7,19 @@ import closeIcon from '../../assets/img/close.svg';
 import { useDispatch } from 'react-redux';
 import { setSearching } from '../../redux/slices/filterSlice';
 
-function Search() {
+const Search: React.FC = () => {
   const dispatch = useDispatch();
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState('');
 
   const onUpdateSearch = useCallback(
-    debounce((str) => {
+    debounce((str:string) => {
       dispatch(setSearching(str));
     }, 400),
     [],
   );
 
-  const onChangeValue = (e) => {
+  const onChangeValue = (e:any) => {
     setValue(e.target.value);
     onUpdateSearch(e.target.value);
   };
@@ -27,7 +27,7 @@ function Search() {
   const clearInput = () => {
     setValue('');
     dispatch(setSearching(''));
-    inputRef.current.focus();
+    inputRef.current?.focus();
   };
 
   return (
