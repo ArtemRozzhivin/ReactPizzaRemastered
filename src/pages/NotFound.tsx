@@ -2,12 +2,12 @@ import React from 'react';
 
 import NotFoundItem from '../components/notFoundItem/NotFoundItem';
 
-function NotFound() {
-
+const NotFound: React.FC = () => {
 	return (
 		<div>
-			<NotFoundItem />
+			<NotFoundItem>
 			Вибачте
+			</NotFoundItem>
 		</div>
 	);
 }

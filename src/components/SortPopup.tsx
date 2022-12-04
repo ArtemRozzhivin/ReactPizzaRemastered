@@ -1,22 +1,38 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-export const sorting = [
+type SortPopupProps = {
+	value: {
+		sort: string;
+		name: string;
+		order: string;
+	};
+	onChangeSortPopup: any;
+}
+
+type SortingType = {
+	sort: string;
+	name: string;
+	order: string;
+}
+
+export const sorting: SortingType[] = [
   { sort: 'rating', name: 'популярностью', order: 'desc' },
   { sort: 'price', name: 'ціною', order: 'desc' },
   { sort: 'title', name: 'алфавітом', order: 'asc' },
 ];
 
-function SortPopup({ value, onChangeSortPopup }) {
-	const sortRef = useRef();
+
+const SortPopup: React.FC<SortPopupProps> = ({ value, onChangeSortPopup }) => {
+	const sortRef = useRef<HTMLDivElement>(null);
   const [visibleSortPopup, setVisibleSortPopup] = useState(false);
 
-  const changeSorting = (sort) => {
+  const changeSorting = (sort: SortingType) => {
     onChangeSortPopup(sort);
     setVisibleSortPopup(!visibleSortPopup);
   };
 
 	useEffect(() => {
-		const hideSortPopup = (e) => {
+		const hideSortPopup = (e: any) => {
 			if(!e.path.includes(sortRef.current)){
 				setVisibleSortPopup(false);
 			}

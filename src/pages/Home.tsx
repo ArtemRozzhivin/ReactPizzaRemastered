@@ -13,7 +13,7 @@ import NotFoundItem from '../components/notFoundItem/NotFoundItem';
 
 import '../scss/app.scss';
 
-function Home() {
+const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isSearch = useRef(false);
@@ -23,11 +23,14 @@ function Home() {
   const { pizzas, status } = useSelector(selectPizzaData);
 
   const getPizzas = async () => {
+		// @ts-ignore
     dispatch(fetchPizzas({ activeCategory, activeSorting, searchValue }));
   };
 
   useEffect(() => {
+		// @ts-ignore
     if (window.location.searchValue) {
+			// @ts-ignore
       const urlParams = qs.parse(window.location.searchValue.substring(1));
       const sortBy = sorting.find((obj) => obj.sort === urlParams.sortBy);
       dispatch(setFilters({ category: Number(urlParams.category), sortBy: sortBy }));
@@ -57,11 +60,11 @@ function Home() {
     isMounted.current = true;
   }, [activeCategory, activeSorting]);
 
-  const setActiveCategory = (id) => {
+  const setActiveCategory = (id: number) => {
     dispatch(setCategory(id));
   };
 
-  const setActiveSorting = (id) => {
+  const setActiveSorting = (id: number) => {
     dispatch(setSort(id));
   };
 
@@ -69,8 +72,8 @@ function Home() {
     <div className="content">
       <div className="container">
         <div className="content__top">
-          <Categories value={activeCategory} onChangeCategory={(id) => setActiveCategory(id)} />
-          <SortPopup value={activeSorting} onChangeSortPopup={(item) => setActiveSorting(item)} />
+          <Categories value={activeCategory} onChangeCategory={(id: number) => setActiveCategory(id)} />
+          <SortPopup value={activeSorting} onChangeSortPopup={(item: number) => setActiveSorting(item)} />
         </div>
         <h2 className="content__title">Усі піци</h2>
 
@@ -83,7 +86,7 @@ function Home() {
             ) : pizzas.length === 0 ? (
               <NotFoundItem>На жаль, піци не знайдено.</NotFoundItem>
             ) : (
-              pizzas.map((obj) => <PizzaBlock key={obj.id} {...obj} />)
+              pizzas.map((obj: any) => <PizzaBlock key={obj.id} {...obj} />)
             )}
           </div>
         )}
