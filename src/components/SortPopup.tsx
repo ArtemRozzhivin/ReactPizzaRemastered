@@ -6,13 +6,17 @@ type SortPopupProps = {
 		name: string;
 		order: string;
 	};
-	onChangeSortPopup: any;
+	onChangeSortPopup: (sorting: {}) => void;
 }
 
 type SortingType = {
 	sort: string;
 	name: string;
 	order: string;
+}
+
+type PopupClick = MouseEvent & {
+	path: Node[];
 }
 
 export const sorting: SortingType[] = [
@@ -32,8 +36,9 @@ const SortPopup: React.FC<SortPopupProps> = ({ value, onChangeSortPopup }) => {
   };
 
 	useEffect(() => {
-		const hideSortPopup = (e: any) => {
-			if(!e.path.includes(sortRef.current)){
+		const hideSortPopup = (event: MouseEvent) => {
+			const _event = event as PopupClick;
+			if(sortRef.current && !_event.path.includes(sortRef.current)){
 				setVisibleSortPopup(false);
 			}
 		}

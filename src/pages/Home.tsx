@@ -64,8 +64,8 @@ const Home = () => {
     dispatch(setCategory(id));
   };
 
-  const setActiveSorting = (id: number) => {
-    dispatch(setSort(id));
+  const setActiveSorting = (obj: {}) => {
+    dispatch(setSort(obj));
   };
 
   return (
@@ -73,7 +73,7 @@ const Home = () => {
       <div className="container">
         <div className="content__top">
           <Categories value={activeCategory} onChangeCategory={(id: number) => setActiveCategory(id)} />
-          <SortPopup value={activeSorting} onChangeSortPopup={(item: number) => setActiveSorting(item)} />
+          <SortPopup value={activeSorting} onChangeSortPopup={(item: {}) => setActiveSorting(item)} />
         </div>
         <h2 className="content__title">Усі піци</h2>
 
@@ -97,5 +97,3 @@ const Home = () => {
 
 export default Home;
 
-//зробити окреме вікно для кожної піци
-//зроботи аутлет
