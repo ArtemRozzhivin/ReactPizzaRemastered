@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzaSlice';
 import { selectFilter, setCategory, setFilters, setSort } from '../redux/slices/filterSlice';
 import Categories from '../components/Categories';
-import SortPopup, { sorting } from '../components/SortPopup';
+import SortPopup, { sorting, SortingType } from '../components/SortPopup';
 import PizzaBlock from '../components/PizzaBlock';
 import PizzaBlockSkeleton from '../components/PizzaBlock/PizzaBlockSkeleton';
 import NotFoundItem from '../components/notFoundItem/NotFoundItem';
@@ -33,7 +33,11 @@ const Home = () => {
 			// @ts-ignore
       const urlParams = qs.parse(window.location.searchValue.substring(1));
       const sortBy = sorting.find((obj) => obj.sort === urlParams.sortBy);
-      dispatch(setFilters({ category: Number(urlParams.category), sortBy: sortBy }));
+
+			if(sortBy){
+				dispatch(setFilters({ category: Number(urlParams.category), sortBy: sortBy }));
+			}
+			
       isSearch.current = true;
     }
   }, []);
@@ -64,7 +68,7 @@ const Home = () => {
     dispatch(setCategory(id));
   };
 
-  const setActiveSorting = (obj: {}) => {
+  const setActiveSorting = (obj: SortingType) => {
     dispatch(setSort(obj));
   };
 
@@ -73,7 +77,7 @@ const Home = () => {
       <div className="container">
         <div className="content__top">
           <Categories value={activeCategory} onChangeCategory={(id: number) => setActiveCategory(id)} />
-          <SortPopup value={activeSorting} onChangeSortPopup={(item: {}) => setActiveSorting(item)} />
+          <SortPopup value={activeSorting} onChangeSortPopup={(item: SortingType) => setActiveSorting(item)} />
         </div>
         <h2 className="content__title">Усі піци</h2>
 

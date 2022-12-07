@@ -1,15 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 type SortPopupProps = {
-	value: {
-		sort: string;
-		name: string;
-		order: string;
-	};
-	onChangeSortPopup: (sorting: {}) => void;
+	value: SortingType;
+	onChangeSortPopup: (sorting: SortingType) => void;
 }
 
-type SortingType = {
+export type SortingType = {
 	sort: string;
 	name: string;
 	order: string;
