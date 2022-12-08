@@ -1,6 +1,7 @@
 import { RootState } from './../store';
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from 'axios';
+import { SortingType } from './filterSlice';
 
 type PizzaItemType = {
 	id: string; 
@@ -13,17 +14,29 @@ type PizzaItemType = {
 	rating: number;
 }
 
+enum Status {
+	LOADING = 'loading',
+	FULFILLED = 'completed',
+	ERROR = 'error',
+}
+
 interface PizzaSliceType {
 	pizzas: PizzaItemType[],
-	status: 'loading' | 'completed' | 'error';
+	status: Status;
 } 
 
 const initialState: PizzaSliceType = {
 	pizzas: [],
-	status: 'loading',
+	status: Status.LOADING,
 }
 
-export const fetchPizzas = createAsyncThunk(
+type fetchPizzasPropsType = {
+	activeCategory: number,
+	searchValue: string,
+	activeSorting: SortingType,
+}
+
+export const fetchPizzas = createAsyncThunk<PizzaItemType[], fetchPizzasPropsType>(
   'pizzas/fetchPizzasStatus',
   async ({activeCategory, activeSorting, searchValue}) => {
 		const { data } = await axios.get(
@@ -31,8 +44,8 @@ export const fetchPizzas = createAsyncThunk(
 				activeCategory ? `category=${activeCategory}` : ''
 			}&sortBy=${activeSorting.sort}&order=${activeSorting.order}`,
 		);
-		const searchingData = data.filter((obj) => obj.title.toLowerCase().includes(searchValue.toLowerCase()))
-		return searchingData
+		const searchingData = data.filter((obj: PizzaItemType) => obj.title.toLowerCase().includes(searchValue.toLowerCase()))
+		return searchingData;
   }
 )
 
@@ -40,23 +53,26 @@ export const pizzaSlice = createSlice({
 	name: 'pizzas',
 	initialState,
 	reducers: {
-		setPizzas: (state, action) => {
+		setPizzas: (state, action: PayloadAction<PizzaItemType[]>) => {
 			state.pizzas = action.payload
 		},
 	},
-	extraReducers: {
-		[fetchPizzas.pending]: (state) => {
+	extraReducers: (builder) => {
+		builder.addCase(fetchPizzas.pending, (state) => {
 			state.pizzas = [];
-			state.status = 'loading'
-		},
-		[fetchPizzas.fulfilled]: (state, action) => {
-			state.status = 'completed'
+			state.status = Status.LOADING
+		})
+
+		builder.addCase(fetchPizzas.fulfilled, (state, action) => {
+			state.status = Status.FULFILLED
 			state.pizzas = action.payload
-		},
-		[fetchPizzas.rejected]: (state) => {
+		})
+
+		builder.addCase(fetchPizzas.rejected, (state) => {
 			state.pizzas = [];
-			state.status = 'error'
-		}
+			state.status = Status.ERROR
+		})
+
 	}
 })
 

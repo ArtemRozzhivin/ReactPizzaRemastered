@@ -17,16 +17,7 @@ const CartItem: React.FC<CartItemProps> = ({ id, title, price, imageUrl, size, t
   const dispatch = useDispatch();
 
   const plusItem = () => {
-		const item: ItemCartPizza = {
-      id,
-      title,
-      price,
-      imageUrl,
-      size: size,
-      type: type,
-			count: count,
-    };
-    dispatch(addItemCart(item));
+    dispatch(addItemCart({id} as ItemCartPizza ));
   };
 
   const minusItem = () => {
