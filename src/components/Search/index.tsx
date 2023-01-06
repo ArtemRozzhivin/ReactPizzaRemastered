@@ -5,7 +5,7 @@ import styles from './Search.module.scss';
 import searchIcon from '../../assets/img/search-icon.svg';
 import closeIcon from '../../assets/img/close.svg';
 import { useDispatch } from 'react-redux';
-import { setSearching } from '../../redux/slices/filterSlice';
+import { setSearching } from '../../redux/filter/slice';
 
 const Search: React.FC = () => {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ const Search: React.FC = () => {
   const [value, setValue] = useState('');
 
   const onUpdateSearch = useCallback(
-    debounce((str:string) => {
+    debounce((str: string) => {
       dispatch(setSearching(str));
     }, 400),
     [],
@@ -47,6 +47,6 @@ const Search: React.FC = () => {
       )}
     </div>
   );
-}
+};
 
 export default Search;

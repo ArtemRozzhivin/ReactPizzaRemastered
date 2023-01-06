@@ -1,19 +1,19 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 
 type SortPopupProps = {
-	value: SortingType;
-	onChangeSortPopup: (sorting: SortingType) => void;
-}
+  value: SortingType;
+  onChangeSortPopup: (sorting: SortingType) => void;
+};
 
 export type SortingType = {
-	sort: string;
-	name: string;
-	order: string;
-}
+  sort: string;
+  name: string;
+  order: string;
+};
 
 type PopupClick = MouseEvent & {
-	path: Node[];
-}
+  path: Node[];
+};
 
 export const sorting: SortingType[] = [
   { sort: 'rating', name: 'популярностью', order: 'desc' },
@@ -21,9 +21,8 @@ export const sorting: SortingType[] = [
   { sort: 'title', name: 'алфавітом', order: 'asc' },
 ];
 
-
-const SortPopup: React.FC<SortPopupProps> = ({ value, onChangeSortPopup }) => {
-	const sortRef = useRef<HTMLDivElement>(null);
+const SortPopup: React.FC<SortPopupProps> = memo(({ value, onChangeSortPopup }) => {
+  const sortRef = useRef<HTMLDivElement>(null);
   const [visibleSortPopup, setVisibleSortPopup] = useState(false);
 
   const changeSorting = (sort: SortingType) => {
@@ -31,19 +30,19 @@ const SortPopup: React.FC<SortPopupProps> = ({ value, onChangeSortPopup }) => {
     setVisibleSortPopup(!visibleSortPopup);
   };
 
-	useEffect(() => {
-		const hideSortPopup = (event: MouseEvent) => {
-			const _event = event as PopupClick;
-			if(sortRef.current && !_event.path.includes(sortRef.current)){
-				setVisibleSortPopup(false);
-			}
-		}
-		document.body.addEventListener('click', hideSortPopup)
+  useEffect(() => {
+    const hideSortPopup = (event: MouseEvent) => {
+      const _event = event as PopupClick;
+      if (sortRef.current && !_event.path.includes(sortRef.current)) {
+        setVisibleSortPopup(false);
+      }
+    };
+    document.body.addEventListener('click', hideSortPopup);
 
-		return () => {
-			document.body.removeEventListener('click', hideSortPopup)
-		}
-	}, [])
+    return () => {
+      document.body.removeEventListener('click', hideSortPopup);
+    };
+  }, []);
 
   return (
     <div ref={sortRef} className="sort">
@@ -79,6 +78,6 @@ const SortPopup: React.FC<SortPopupProps> = ({ value, onChangeSortPopup }) => {
       )}
     </div>
   );
-}
+});
 
 export default SortPopup;

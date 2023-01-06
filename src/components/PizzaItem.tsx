@@ -3,42 +3,45 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-
 const PizzaItem: React.FC = () => {
-	const {id} = useParams()
-	const [pizza, setPizza] = useState<{
-		imageUrl: string,
-		title: string,
-		price: number,
-	}>({
-		imageUrl: '',
-		title: '',
-		price: 0,
-	});
+  const { id } = useParams();
+  const [pizza, setPizza] = useState<{
+    imageUrl: string;
+    title: string;
+    price: number;
+  }>({
+    imageUrl: '',
+    title: '',
+    price: 0,
+  });
 
-	useEffect(() => {
-		try {
-			const fetchPizzaById = async () => {
-				const {data} = await axios.get('https://633058daf5fda801f8df1ccd.mockapi.io/pizzas/' + id);
-				await setPizza(data)
-			}
-			fetchPizzaById()
-		} catch (error) {
-			console.log('error', error)
-		}
-	}, [])
+  useEffect(() => {
+    try {
+      const fetchPizzaById = async () => {
+        const { data } = await axios.get(
+          'https://633058daf5fda801f8df1ccd.mockapi.io/pizzas/' + id,
+        );
+        await setPizza(data);
+      };
+      fetchPizzaById();
+    } catch (error) {
+      console.log('error', error);
+    }
+  }, []);
 
-
-	return (
-		<div>
-		{!pizza ? (<div>Завантаження...</div>) : (<div className="content">
-		<div className="container">
-			<div className="pizza-item">
-				<img className="pizza-item__image" src={pizza.imageUrl} alt="pizza" />
-				<div>
-					<h2 className="pizza-item__title">{pizza.title}</h2>
-					<div className="pizza-item__price">від {pizza.price} ₴</div>
-					{/* <div className="pizza-block__selector">
+  return (
+    <div>
+      {!pizza ? (
+        <div>Завантаження...</div>
+      ) : (
+        <div className="content">
+          <div className="container">
+            <div className="pizza-item">
+              <img className="pizza-item__image" src={pizza.imageUrl} alt="pizza" />
+              <div>
+                <h2 className="pizza-item__title">{pizza.title}</h2>
+                <div className="pizza-item__price">від {pizza.price} ₴</div>
+                {/* <div className="pizza-block__selector">
 						<ul>
 							{pizza.types.map((type) => (
 								<li
@@ -60,8 +63,8 @@ const PizzaItem: React.FC = () => {
 							))}
 						</ul>
 					</div> */}
-					<div className="pizza-block__bottom">
-						{/* <button onClick={addPizzaToCart} className="button button--outline button--add">
+                <div className="pizza-block__bottom">
+                  {/* <button onClick={addPizzaToCart} className="button button--outline button--add">
 							<svg
 								width="12"
 								height="12"
@@ -76,17 +79,17 @@ const PizzaItem: React.FC = () => {
 							<span>Додати</span>
 							{count > 0 && <i>{count}</i>}
 						</button> */}
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>)}
-	</div>
-	);
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default PizzaItem;
-
 
 // import React, { useState } from 'react';
 // import { useDispatch, useSelector } from 'react-redux';
@@ -176,5 +179,3 @@ export default PizzaItem;
 // };
 
 // export default PizzaItem;
-
-
