@@ -40,7 +40,10 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, title, price, imageUrl, siz
 
   return (
     <div className="pizza-block">
-      <Link to={`/pizzas/${id}`} state={{ id, title, price, imageUrl, sizes, types }}>
+      <Link
+        className="pizza-block__head"
+        to={`/pizzas/${id}`}
+        state={{ id, title, price, imageUrl, sizes, types }}>
         <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
         <h4 className="pizza-block__title">{title}</h4>
       </Link>

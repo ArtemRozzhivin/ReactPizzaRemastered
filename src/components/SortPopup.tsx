@@ -16,7 +16,7 @@ type PopupClick = MouseEvent & {
 };
 
 export const sorting: SortingType[] = [
-  { sort: 'rating', name: 'популярностью', order: 'desc' },
+  { sort: 'rating', name: 'популярністю', order: 'desc' },
   { sort: 'price', name: 'ціною', order: 'desc' },
   { sort: 'title', name: 'алфавітом', order: 'asc' },
 ];

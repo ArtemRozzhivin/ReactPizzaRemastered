@@ -1,11 +1,13 @@
 import React, { useRef, useState, useCallback } from 'react';
 import debounce from 'lodash.debounce';
 
-import styles from './Search.module.scss';
 import searchIcon from '../../assets/img/search-icon.svg';
 import closeIcon from '../../assets/img/close.svg';
 import { useDispatch } from 'react-redux';
 import { setSearching } from '../../redux/filter/slice';
+
+import styles from './Search.module.scss';
+import Input from '../ui/Input';
 
 const Search: React.FC = () => {
   const dispatch = useDispatch();
@@ -33,7 +35,8 @@ const Search: React.FC = () => {
   return (
     <div className={styles.container}>
       <img className={styles.iconSearch} src={searchIcon} alt="searchIcon" />
-      <input
+
+      <Input
         ref={inputRef}
         value={value}
         onChange={(e) => onChangeValue(e)}
