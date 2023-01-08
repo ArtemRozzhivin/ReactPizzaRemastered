@@ -14,7 +14,7 @@ import '../scss/app.scss';
 import { selectPizzaData } from '../redux/pizzas/selectors';
 import { selectFilter } from '../redux/filter/selectors';
 import { fetchPizzas } from '../redux/pizzas/asyncActions';
-import { setCategory, setSort } from '../redux/filter/slice';
+import { setCategory, setFilters, setSort } from '../redux/filter/slice';
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -29,18 +29,18 @@ const Home = () => {
     dispatch(fetchPizzas({ activeCategory, activeSorting, searchValue }));
   };
 
-  // useEffect(() => {
-  //   if (window.location.search) {
-  //     const urlParams = qs.parse(window.location.search.substring(1));
-  //     const sortBy = sorting.find((obj) => obj.sort === urlParams.sortBy);
+  useEffect(() => {
+    if (window.location.search) {
+      const urlParams = qs.parse(window.location.search.substring(1));
+      const sortBy = sorting.find((obj) => obj.sort === urlParams.sortBy);
 
-  //     if (sortBy) {
-  //       dispatch(setFilters({ category: Number(urlParams.category), sortBy: sortBy }));
-  //     }
+      if (sortBy) {
+        dispatch(setFilters({ category: Number(urlParams.category), sortBy: sortBy }));
+      }
 
-  //     isSearch.current = true;
-  //   }
-  // }, []);
+      isSearch.current = true;
+    }
+  }, []);
 
   useEffect(() => {
     if (!isSearch.current) {
@@ -51,32 +51,35 @@ const Home = () => {
     isSearch.current = false;
   }, [activeCategory, activeSorting, searchValue]);
 
-  // useEffect(() => {
-  //   if (isMounted.current) {
-  //     const params = qs.stringify({
-  //       category: activeCategory,
-  //       sortBy: activeSorting.sort,
-  //       order: activeSorting.order,
-  //     });
+  useEffect(() => {
+    if (isMounted.current) {
+      const params = qs.stringify({
+        category: activeCategory,
+        sortBy: activeSorting.sort,
+        order: activeSorting.order,
+      });
 
-  //     navigate(`?${params}`);
-  //   }
-  //   isMounted.current = true;
-  // }, [activeCategory, activeSorting]);
+      navigate(`?${params}`);
+    }
+    isMounted.current = true;
+  }, [activeCategory, activeSorting]);
 
-  const setActiveCategory = useCallback((id: number) => {
+  const setActiveCategory = (id: number) => {
     dispatch(setCategory(id));
-  }, []);
+  };
 
-  const setActiveSorting = useCallback((obj: SortingType) => {
+  const setActiveSorting = (obj: SortingType) => {
     dispatch(setSort(obj));
-  }, []);
+  };
 
   return (
     <div className="content">
       <div className="container">
         <div className="content__top">
-          <Categories value={1} setActiveCategory={(id: number) => setActiveCategory(id)} />
+          <Categories
+            value={activeCategory}
+            setActiveCategory={(id: number) => setActiveCategory(id)}
+          />
           <SortPopup
             value={activeSorting}
             onChangeSortPopup={(item: SortingType) => setActiveSorting(item)}

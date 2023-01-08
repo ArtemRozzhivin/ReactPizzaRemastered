@@ -21,7 +21,7 @@ export const sorting: SortingType[] = [
   { sort: 'title', name: 'алфавітом', order: 'asc' },
 ];
 
-const SortPopup: React.FC<SortPopupProps> = memo(({ value, onChangeSortPopup }) => {
+const SortPopup: React.FC<SortPopupProps> = ({ value, onChangeSortPopup }) => {
   const sortRef = useRef<HTMLDivElement>(null);
   const [visibleSortPopup, setVisibleSortPopup] = useState(false);
 
@@ -78,6 +78,6 @@ const SortPopup: React.FC<SortPopupProps> = memo(({ value, onChangeSortPopup }) 
       )}
     </div>
   );
-});
+};
 
 export default SortPopup;

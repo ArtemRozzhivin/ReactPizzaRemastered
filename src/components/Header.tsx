@@ -11,8 +11,6 @@ const Header: React.FC = () => {
   const location = useLocation();
   const mountedRef = useRef(false);
 
-  console.log(items);
-
   useEffect(() => {
     if (mountedRef.current) {
       const json = JSON.stringify(items);

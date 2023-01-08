@@ -5,7 +5,7 @@ import { store } from './redux/store';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
 import NotFound from './pages/NotFound';
-import PizzaItem from './components/PizzaItem';
+import PizzaPage from './pages/PizzaPage';
 import MainLayout from './layouts/MainLayout';
 
 import './App.css';
@@ -19,7 +19,7 @@ function App() {
           <Routes>
             <Route path="/" element={<MainLayout />}>
               <Route path="/" element={<Home />} />
-              <Route path="/pizzas/:id" element={<PizzaItem />} />
+              <Route path="/pizzas/:id" element={<PizzaPage />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="*" element={<NotFound />} />
             </Route>
@@ -34,4 +34,3 @@ export default App;
 
 // adaptive
 // animation
-// fix excessive renders when change input value
