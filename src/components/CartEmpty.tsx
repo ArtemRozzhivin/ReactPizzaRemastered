@@ -5,7 +5,7 @@ import emtyCartPhoto from '../assets/img/empty-cart.png';
 
 const CartEmpty: React.FC = () => {
   return (
-    <div className="content ">
+    <div className="content">
       <div className=" container  container--cart">
         <div className=" cart cart--empty">
           <h2>
@@ -24,6 +24,6 @@ const CartEmpty: React.FC = () => {
       </div>
     </div>
   );
-}
+};
 
 export default CartEmpty;

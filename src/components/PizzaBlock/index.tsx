@@ -48,7 +48,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, title, price, imageUrl, siz
         <h4 className="pizza-block__title">{title}</h4>
       </Link>
 
-      <div className="pizza-block__selector">
+      <div className="pizza-block__selector pizza-block__selector-home">
         <ul>
           {types.map((type) => (
             <li

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import CartEmpty from '../components/CartEmpty';
 import CartItem from '../components/CartItem';
@@ -111,7 +112,7 @@ const Cart: React.FC = () => {
               </span>
             </div>
             <div className="cart__bottom-buttons">
-              <a href="/" className="button button--outline button--add go-back-btn">
+              <Link to="/" className="button button--outline button--add go-back-btn">
                 <svg
                   width="8"
                   height="14"
@@ -128,7 +129,7 @@ const Cart: React.FC = () => {
                 </svg>
 
                 <span>Повернутися назад</span>
-              </a>
+              </Link>
               <div className="button pay-btn">
                 <span>Оплатити зараз</span>
               </div>

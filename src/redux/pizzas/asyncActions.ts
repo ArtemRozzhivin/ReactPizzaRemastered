@@ -6,13 +6,15 @@ export const fetchPizzas = createAsyncThunk<PizzaItemType[], fetchPizzasPropsTyp
   'pizzas/fetchPizzasStatus',
   async ({ activeCategory, activeSorting, searchValue }) => {
     const { data } = await axios.get(
-      `https://633058daf5fda801f8df1ccd.mockapi.io/pizzas?${
-        activeCategory ? `category=${activeCategory}` : ''
+      `https://63bd9867538970c560831fcd.mockapi.io/pizzas?
+        activeCategory ? category=${activeCategory} : ''
       }&sortBy=${activeSorting.sort}&order=${activeSorting.order}`,
     );
+
     const searchingData = data.filter((obj: PizzaItemType) =>
       obj.title.toLowerCase().includes(searchValue.toLowerCase()),
     );
+
     return searchingData;
   },
 );

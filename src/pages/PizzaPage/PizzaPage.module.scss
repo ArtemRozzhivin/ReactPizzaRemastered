@@ -1,12 +1,6 @@
 @import '../../scss/libs/normalize';
 @import '../../scss/variables';
 
-// @import 'fonts';
-// @import 'variables';
-// @import 'libs/normalize';
-
-// @import 'components/all';
-
 .pizzaItem {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

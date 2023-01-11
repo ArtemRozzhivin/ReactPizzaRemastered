@@ -74,6 +74,7 @@
 
     @media (max-width: $md) {
       .header__logo {
+        flex: 1 1 auto;
         h1 {
           display: none;
         }
