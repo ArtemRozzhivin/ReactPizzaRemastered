@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import clsx from 'clsx';
 import { ItemCartPizza } from '../redux/cart/types';
 import { addItemCart, minusItemCart, removeItemCart } from '../redux/cart/slice';
 

@@ -4,7 +4,7 @@ import styles from './NotFoundItem.module.scss';
 
 type NotFoundItemProps = {
   children: React.ReactNode;
-}
+};
 
 const NotFoundItem: React.FC<NotFoundItemProps> = ({ children }) => {
   return (
@@ -13,6 +13,6 @@ const NotFoundItem: React.FC<NotFoundItemProps> = ({ children }) => {
       <div className={styles.text}>{children}</div>
     </div>
   );
-}
+};
 
 export default NotFoundItem;

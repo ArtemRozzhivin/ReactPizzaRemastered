@@ -7,7 +7,7 @@ type CategoriesProps = {
   setActiveCategory: (category: number) => void;
 };
 
-const Categories: React.FC<CategoriesProps> = ({ value, setActiveCategory }) => {
+const Categories: React.FC<CategoriesProps> = React.memo(({ value, setActiveCategory }) => {
   return (
     <div className="categories">
       <ul>
@@ -22,6 +22,6 @@ const Categories: React.FC<CategoriesProps> = ({ value, setActiveCategory }) => 
       </ul>
     </div>
   );
-};
+});
 
 export default Categories;

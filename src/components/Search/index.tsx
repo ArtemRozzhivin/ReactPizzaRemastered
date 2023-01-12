@@ -1,11 +1,9 @@
 import React, { useRef, useState, useCallback } from 'react';
 import debounce from 'lodash.debounce';
-
 import searchIcon from '../../assets/img/search-icon.svg';
 import closeIcon from '../../assets/img/close.svg';
 import { useDispatch } from 'react-redux';
 import { setSearching } from '../../redux/filter/slice';
-
 import styles from './Search.module.scss';
 import Input from '../ui/Input';
 

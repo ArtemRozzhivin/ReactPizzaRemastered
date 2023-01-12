@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 type SortPopupProps = {
   value: SortingType;
@@ -21,7 +21,7 @@ export const sorting: SortingType[] = [
   { sort: 'title', name: 'алфавітом', order: 'asc' },
 ];
 
-const SortPopup: React.FC<SortPopupProps> = ({ value, onChangeSortPopup }) => {
+const SortPopup: React.FC<SortPopupProps> = React.memo(({ value, onChangeSortPopup }) => {
   const sortRef = useRef<HTMLDivElement>(null);
   const [visibleSortPopup, setVisibleSortPopup] = useState(false);
 
@@ -78,6 +78,6 @@ const SortPopup: React.FC<SortPopupProps> = ({ value, onChangeSortPopup }) => {
       )}
     </div>
   );
-};
+});
 
 export default SortPopup;

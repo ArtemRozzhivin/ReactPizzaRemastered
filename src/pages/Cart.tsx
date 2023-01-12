@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import CartEmpty from '../components/CartEmpty';
 import CartItem from '../components/CartItem';
@@ -9,11 +9,20 @@ import { clearItems } from '../redux/cart/slice';
 
 const Cart: React.FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { totalPrice, totalCount, items } = useSelector(selectCart);
 
   const removeItems = () => {
     if (window.confirm('Видалити всі піци з корзини?')) {
       dispatch(clearItems());
+    }
+  };
+
+  const payNow = () => {
+    if (window.confirm('Ви впенені, що хочете оформити замовлення?')) {
+      alert('Ваше замовлення прийнято!');
+      dispatch(clearItems());
+      return navigate('/');
     }
   };
 
@@ -130,7 +139,7 @@ const Cart: React.FC = () => {
 
                 <span>Повернутися назад</span>
               </Link>
-              <div className="button pay-btn">
+              <div onClick={payNow} className="button pay-btn">
                 <span>Оплатити зараз</span>
               </div>
             </div>

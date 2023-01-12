@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import qs from 'qs';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch } from '../redux/store';
@@ -64,12 +64,36 @@ const Home = () => {
     isMounted.current = true;
   }, [activeCategory, activeSorting]);
 
-  const setActiveCategory = (id: number) => {
+  const setActiveCategory = useCallback((id: number) => {
     dispatch(setCategory(id));
-  };
+  }, []);
 
-  const setActiveSorting = (obj: SortingType) => {
+  const setActiveSorting = useCallback((obj: SortingType) => {
     dispatch(setSort(obj));
+  }, []);
+
+  const renderPizzas = () => {
+    if (status === 'loading') {
+      return (
+        <div className="content__items">
+          {[...new Array(4)].map((_, index) => (
+            <PizzaBlockSkeleton key={index} />
+          ))}
+        </div>
+      );
+    } else if (status === 'error') {
+      return <NotFoundItem>По даній адресі сторінки не знайдено. Спробуйте пізніше.</NotFoundItem>;
+    } else if (pizzas.length === 0) {
+      return <NotFoundItem>На жаль, піци не знайдено.</NotFoundItem>;
+    } else {
+      return (
+        <div className="content__items">
+          {pizzas.map((obj: any) => (
+            <PizzaBlock key={obj.id} {...obj} />
+          ))}
+        </div>
+      );
+    }
   };
 
   return (
@@ -87,19 +111,7 @@ const Home = () => {
         </div>
         <h2 className="content__title">Усі піци</h2>
 
-        {status === 'error' ? (
-          <NotFoundItem>По даній адресі сторінки не знайдено. Спробуйте пізніше.</NotFoundItem>
-        ) : (
-          <div className="content__items">
-            {status === 'loading' ? (
-              [...new Array(12)].map((_, index) => <PizzaBlockSkeleton key={index} />)
-            ) : pizzas.length === 0 ? (
-              <NotFoundItem>На жаль, піци не знайдено.</NotFoundItem>
-            ) : (
-              pizzas.map((obj: any) => <PizzaBlock key={obj.id} {...obj} />)
-            )}
-          </div>
-        )}
+        {renderPizzas()}
       </div>
     </div>
   );
