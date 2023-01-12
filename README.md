@@ -8,10 +8,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## How to install on your computer
 
-- Clone this git repo: git clone git@github.com:ArtemRozzhivin/ReactPizzaRemastered.git
-- npm install to install all req'd dependencies
-- npm start to start the local server (this project uses create-react-app)
+- Clone this git repo: git clone https://github.com/ArtemRozzhivin/ReactPizzaRemastered.git
+- to install all req'd dependencies: npm install
+- to start the local server (this project uses create-react-app): npm start 
 
-##Technology stack
-Programming languages: TypeScript
-Technologies and Frameworks: CSS, SCSS, HTML, ReactJS, Redux Toolkit
+## Technology stack
+- Programming languages: TypeScript
+- Technologies and Frameworks: CSS, SCSS, HTML, ReactJS, Redux Toolkit
